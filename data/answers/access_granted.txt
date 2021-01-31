@@ -1,0 +1,6 @@
+<b>Вы предоставили доступ</b>
+
+Имя: {first_name}
+Фамилия: {last_name}
+Логин: {username}
+ID: {user_id}
