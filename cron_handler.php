@@ -18,7 +18,7 @@ $flag = false;
 	$output_array = array();
 	
 	
-	$B24 = new Bitrix24('mail@domain.ru', 'SuperPass', 'domain.bitrix24.ru');
+	$B24 = new Bitrix24($login, $pass, $crm);
 	
 	if (file_exists('flag.txt') && time()-3600 < filemtime('flag.txt')) {
 		$arResult = $B24->checkRequests();
