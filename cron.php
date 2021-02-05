@@ -18,7 +18,7 @@ $flag = false;
 	$output_array = array();
 	
 	
-	$B24 = new Bitrix24('rg@seoven.ru', 'j2medit', 'seoven.bitrix24.ru');
+	$B24 = new Bitrix24('login@domain.ru', 'password', 'domain.bitrix24.ru');
 	
 	if (file_exists('flag.txt') && time()-3600 < filemtime('flag.txt')) {
 		$arResult = $B24->checkRequests();
