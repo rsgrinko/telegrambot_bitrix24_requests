@@ -6,7 +6,7 @@
 	 	E-Mail: rsgrinko@gmail.com
 	*/
 
-/* Отрпвка сообщений в телеграм (вспомогательная) */
+/* Отравка сообщений в телеграм (вспомогательная) */
 function sendTelegram($method, $response)
 {
 	$ch = curl_init('https://api.telegram.org/bot'.TOKEN.'/'.$method);  //?parse_mode=html
@@ -45,14 +45,11 @@ $message = str_replace('<br>', '%0A', $message);
 $message = str_replace('<br />', '%0A', $message);
 $message = str_replace(' ', '%20', $message);
 
-//file_get_contents('https://api.telegram.org/bot'.TELEGRAM_TOKEN.'/sendmessage?chat_id='.$chat_id.'&parse_mode=HTML&text='.$message);
 execRequest('https://api.telegram.org/bot'.TOKEN.'/sendmessage?chat_id='.$chat_id.'&parse_mode=HTML&reply_markup='.$keys.'&text='.$message);
 }
 
 
-
 /* Основной класс для работы с телеграмм */
-
 class BOT {
     /*
 	    sendMessage принимает агрументы

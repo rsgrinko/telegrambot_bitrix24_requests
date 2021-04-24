@@ -33,7 +33,7 @@ $data_cb        = $callback_query['data'];                            // callbac
 
 $message_id     = $callback_query['message']['message_id'];           // идентификатор последнего сообщения
 $chat_id_in     = $callback_query['message']['chat']['id'];           // идентификатор чата
-############################################################################
+###############################################################################################################################
 
 // Прислали фото.
 if (!empty($data['message']['photo'])) {
@@ -58,10 +58,8 @@ if (!empty($data['message']['photo'])) {
 					'text' => 'Фото сохранено'
 				)
 			);
-			
 		}
 	}
-	
 	exit();	
 }
  
@@ -92,7 +90,6 @@ if (!empty($data['message']['document'])) {
 	
 	exit();	
 }
- 
  
 /*************************************************************/	
 // Ответ на текстовые сообщения.
@@ -130,28 +127,27 @@ if (!empty($data['message']['text'])) {
 		if(!file_exists($profile)){
 			
 file_put_contents($profile, 
-$data['message']['chat']['id'].
-':||:'.
-$data['message']['chat']['first_name'].
-':||:'.
-$data['message']['chat']['last_name'].
-':||:'.
-$data['message']['chat']['username'].
-':||:0:||:'.
-date("d.m.Y").
-':||:'.
-date("H:i:s").
-':||:');
-
-
+							$data['message']['chat']['id'].
+							':||:'.
+							$data['message']['chat']['first_name'].
+							':||:'.
+							$data['message']['chat']['last_name'].
+							':||:'.
+							$data['message']['chat']['username'].
+							':||:0:||:'.
+							date("d.m.Y").
+							':||:'.
+							date("H:i:s").
+							':||:'
+				);
+		
 		$msg = str_replace('{NAME}', $first_name, file_get_contents('data/answers/reg.txt'));
 		$bot->sendMessage($user_id, $msg,
 									[['/calladmin', '/help']],
 									['keyboard', false, true],
 									['html', true]);
 		
-		} else{
-		
+		} else{		
 		$msg = str_replace('{NAME}', $first_name, file_get_contents('data/answers/reg_exists.txt'));
 		$bot->sendMessage($user_id, $msg,
 									[['/calladmin', '/help']],
@@ -226,17 +222,11 @@ elseif (mb_stripos($text, '/calladmin') !== false) {
 									['keyboard', false, true],
 									['html', true]);
 		
-		
-		
-		
-		
-																
 		exit();	
 	} 
  /*************************************************************/
- 
   elseif (mb_stripos($text, '/deny') !== false) {
-		
+
 		if($user_id!=$ADMIN_ID) {
 		$msg = file_get_contents('data/answers/access_denied.txt');
 		$bot->sendMessage($user_id, $msg);
@@ -279,24 +269,12 @@ elseif (mb_stripos($text, '/calladmin') !== false) {
 		exit();	
 	} 
  /*************************************************************/	
-   elseif (mb_stripos($text, '/about') !== false) {
-		
-	
-		
-	    //send admin						
-		$msg = file_get_contents('data/answers/about.txt');
-
-		
+   elseif (mb_stripos($text, '/about') !== false) {						
+		$msg = file_get_contents('data/answers/about.txt');		
 		$bot->sendMessage($user_id, $msg,
 									[['/help', '/about']],
 									['keyboard', false, true],
 									['html', true]);
-
-		
-		
-		
-		
-																
 		exit();	
 	} 
  /*************************************************************/
@@ -309,7 +287,6 @@ elseif (mb_stripos($text, '/calladmin') !== false) {
 				'photo' => curl_file_create(__DIR__ . '/torin.png')
 			)
 		);
-		
 		exit();	
 	}
  /*************************************************************/	
@@ -322,7 +299,6 @@ elseif (mb_stripos($text, '/calladmin') !== false) {
 				'document' => curl_file_create(__DIR__ . '/torin.png')
 			)
 		);
- 
 		exit();	
 	}
 /*************************************************************/	
@@ -330,10 +306,8 @@ elseif (mb_stripos($text, '/calladmin') !== false) {
 	elseif (mb_stripos($text, 'список') !== false) {
 		$tmp = scandir('./files/');
 		$c = count($tmp)-2;
-		
-		$resp = '
-		';
-		
+
+		$resp = '';
 		foreach($tmp as $file){
 			if($file == '.' or $file == '..') continue;
 			$resp.=$file.'<br>';
@@ -346,12 +320,11 @@ elseif (mb_stripos($text, '/calladmin') !== false) {
 				'text' => '<b>Список сохраненных файлов ('.$c.'):</b> '.$resp
 			)
 		);
- 
 		exit();	
 	}
 /*************************************************************/	
 	elseif (mb_stripos($text, 'тест') !== false) { //тестовая херня
-		
+
 		sendTelegram(
 			'sendMessage', 
 			array(
@@ -359,7 +332,6 @@ elseif (mb_stripos($text, '/calladmin') !== false) {
 				'text' => print_r($data, true)
 			)
 		);
- 
 		exit();	
 	}
 /*************************************************************/	
@@ -375,7 +347,6 @@ elseif (mb_stripos($text, '/calladmin') !== false) {
 				'text' => $tmp
 			)
 		);
- 
 		exit();	
 	}
 /*************************************************************/	
@@ -388,5 +359,5 @@ elseif (mb_stripos($text, '/calladmin') !== false) {
 			)
 		);
 	}
-	
 }
+?>

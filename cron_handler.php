@@ -12,12 +12,8 @@ require_once 'config.php';
 require_once 'func.php';
 require_once 'bitrix24.class.php';
 
-
-
 $flag = false;
 	$output_array = array();
-	
-	
 	$B24 = new Bitrix24($login, $pass, $crm);
 	
 	if (file_exists('flag.txt') && time()-3600 < filemtime('flag.txt')) {
@@ -39,14 +35,6 @@ $flag = false;
 		    }
 	    }
 		
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
 	    /*  Чистим кэш заявок */
 	    foreach(scandir($folder) as $k=>$v){
 		    if($v == '.' or $v =='..') continue;
@@ -60,15 +48,13 @@ $flag = false;
 		    $string = implode(' ', $string);
 		    file_put_contents($folder.$value[7].'.txt', $value[2].':||:'.$value[1].':||:'.$string);
 	    }
-	    
 	    file_put_contents('data.txt', count($arResult));
     } else {
 	    /*Если количество заявок не поменялось или стало меньше*/
 	    file_put_contents('data.txt', count($arResult));
     }
     /***********************/
-    
-    
+
  if($flag) {
 	 $bot = new BOT();
 	 $requests_c = count($output_array);
@@ -76,14 +62,6 @@ $flag = false;
 	 echo '<pre>'.print_r($output_array,true).'</pre>';
 	 
 	 $message = '<b>!!! ЕСТЬ НОВЫЕ ЗАЯВКИ !!!</b>'."\n";
-	 
-	 //telegram_send('Доступны новые заявки!', '412790359'); //я
-	 //telegram_send('Доступны новые заявки!', '266327248'); //паша
-	 
-	 
-	 
-	 
-	 
 	 foreach($output_array as $key => $item){
 		$message .= '<b>ЗАЯВКА '.($key+1).'</b>'."\n";
 		$message .= '<b>Город:</b> '.$item[2]."\n";
@@ -94,47 +72,20 @@ $flag = false;
 		$message .= '<i>'.$item[0].'</i>'."\n\n"; 
 	 }
 	 
-	 //echo '<pre>'.$message.'</pre>';
-	 //telegram_send(urlencode($message), '412790359'); //я
-	 //telegram_send(urlencode($message), '266327248'); //паша
 	 foreach(scandir('data/users/') as $k =>$v){
 		 if($v == '.' or $v == '..') continue;
 		 $user = 'data/users/'.$v;
 		 $arUser = explode(':||:', file_get_contents($user));
 		 if($arUser[4]=='1') {
-			//telegram_send(urlencode($message), $arUser[0]); 
 			$bot->sendMessage($arUser[0], $message,
 									[['/help', '/about']],
 									['keyboard', false, true],
 									['html', true]);
 			
-		 }
-		 
+		 } 
 	 }
-	 
-	 
 	 }  else {
 		 echo 'flag false';
 	 } 
-//telegram_send('end', '412790359');
-
-
-
-
-
 $executetime = microtime(true) - $start_time;
-
-
-
 echo '<br>Время выполнения скрипта: '.round($executetime, 4).' сек.';
-
-
-
-
-
-
-
-
-
-
-
